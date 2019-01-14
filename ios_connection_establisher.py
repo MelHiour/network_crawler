@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import yaml
 from pprint import pprint
 from netmiko import ConnectHandler 
