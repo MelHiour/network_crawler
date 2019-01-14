@@ -16,6 +16,6 @@ print(commit_config.tostring)
 conn.unlock()
 
 result = conn.command('show configuration system', format='text')
-print(result)
+print(result.xpath('configuration-information/configuration-output')[0][0].text)
 conn.close_session()
 
