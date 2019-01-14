@@ -14,16 +14,10 @@ def ios_connection_establisher(host, creds_file):
                 ssh = netmiko.ConnectHandler(**device_params)
                 ssh.enable()
                 return ssh
-            except netmiko.ssh_exception.NetMikoTimeoutException:
+            except paramiko.ssh_exception.NoValidConnectionsError:
                 print('Host {} is not reachable with {} and {}'.format(host, username, password))
 
-def devices_from_file(device_file):
-    with open(device_file) as file:
-        result = file.read().split('\n')
-        return result
-
 if __name__ == '__main__':
-    result = devices_from_file('devices')
-    #result = ios_connection_establisher('192.168.0.24', 'creds.yml')
+    result = ios_connection_establisher('192.168.0.24', 'creds.yml')
     print(result)
 				
