@@ -32,6 +32,26 @@ def ping_ip_threads(ips, limit=3, type = 'process'):
     return ip_list
 
 def ios_connection_establisher(host, creds_file, command_file): 
+    '''
+    Trying to establish an SSH connection with single IP by different credentials with single thread.
+
+    host = IP address
+    
+    creds_file:
+        usernames:
+        - melhiour
+        - user1
+        - user2
+        passwords:
+        - password1
+        - password2
+        - melhiour
+    
+    command_file:
+        username user1 secret user1
+        line vty 0
+        login local 
+    '''
     print('Unpacking {} file'.format(creds_file))
     with open(creds_file) as file:
         creds = yaml.load(file)
