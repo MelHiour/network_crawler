@@ -3,6 +3,7 @@
 import yaml
 import subprocess
 from pprint import pprint
+from tabulate import tabulate
 import concurrent.futures
 import netmiko 
 import itertools
@@ -31,6 +32,26 @@ def ping_ip_threads(ips, limit=3, type = 'process'):
             ip_list['dead'].append(item['dead'])
     return ip_list
 
+def connection_maker(host, creds, command_file):
+    device_params = {'device_type': 'cisco_ios', 'ip': host, 'username': creds[0], 'password': creds[1],'secret': creds[1]}
+    try:
+        with netmiko.ConnectHandler(**device_params) as ssh:
+            ssh.enable()
+            result = ssh.send_config_from_file(command_file)
+        reconfigured = host
+    except netmiko.ssh_exception.NetMikoAuthenticationException:
+        reconfigured = None
+        pass
+    return reconfigured
+
+def connection_maker_threads(host, creds_file, command_file, limit = 3):
+    with open(creds_file) as file:
+        creds = yaml.load(file)
+    creds_product = list(itertools.product(creds['usernames'], creds['passwords']))
+    with concurrent.futures.ThreadPoolExecutor(max_workers=limit) as executor:
+        grabber = list(executor.map(connection_maker, itertools.repeat(host), creds_product, itertools.repeat(command_file)))
+    return grabber
+        
 def ios_connection_establisher(host, creds_file, command_file): 
     '''
     Trying to establish an SSH connection with single IP by different credentials with single thread.
@@ -78,6 +99,7 @@ def ios_connection_establisher(host, creds_file, command_file):
         except netmiko.ssh_exception.NetMikoAuthenticationException:
             print('NetMikoAuthenticationException accurs: {} time(s)'.format(exeption_counter))
             exeption_counter = exeption_counter + 1
+            reconfigured = None
             pass
     return reconfigured
 
@@ -89,6 +111,11 @@ def devices_from_file(device_file):
 if __name__ == '__main__':
     devices = devices_from_file('devices')
     ip_list = ping_ip_threads(devices)
+    with open('creds.yml') as file:
+        creds = yaml.load(file)
+    creds_product = list(itertools.product(creds['usernames'], creds['passwords']))
+    result_list = []
     for ip in ip_list['alive']:
-        result = ios_connection_establisher(ip, 'creds.yml', 'commands')
-        print(result)
+        result = connection_maker_threads(ip, 'creds.yml', 'commands')
+        result_list.append(result)
+    print(tabulate(result_list, headers = creds_product))
