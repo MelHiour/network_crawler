@@ -5,7 +5,7 @@ devices = [i for i in range(32897, 32947)]
 ids = [i for i in range(1,51)]
 
 def provision(devices, ids, limit = 50):
-    with concurrent.futures.ProcessPoolExecutor(max_workers=limit) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=limit) as executor:
         executor.map(zero_provisioning, devices, ids)
 
 def zero_provisioning(port, id):
