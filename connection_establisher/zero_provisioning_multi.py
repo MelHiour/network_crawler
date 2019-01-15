@@ -9,8 +9,8 @@ def provision(devices, ids, limit = 50):
         executor.map(zero_provisioning, devices, ids)
 
 def zero_provisioning(port, id):
-    with pexpect.spawn('telnet 192.168.0.29 {}'.format(port)) as t:i
-        print('Provisioning R{}i via port {}'.format(id, port)
+    with pexpect.spawn('telnet 192.168.0.29 {}'.format(port)) as t:
+        print('Provisioning R{} via port {}'.format(id, port))
         t.sendline()
         t.expect('no]:')
         t.sendline('no')
