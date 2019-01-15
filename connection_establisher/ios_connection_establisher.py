@@ -42,6 +42,9 @@ def connection_maker(host, creds, command_file):
     except netmiko.ssh_exception.NetMikoAuthenticationException:
         reconfigured = None
         pass
+    except netmiko.ssh_exception.NetMikoTimeoutException:
+        reconfigured = None
+        pass
     return reconfigured
 
 def connection_maker_threads(host, creds_file, command_file, limit = 3):
