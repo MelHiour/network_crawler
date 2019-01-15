@@ -54,6 +54,7 @@ def ios_connection_establisher(host, creds_file, command_file):
                 print('The result of operations is:')
                 pprint(result)
             reconfigured = host
+            break
         except netmiko.ssh_exception.NetMikoAuthenticationException:
             print('NetMikoAuthenticationException accurs: {} time(s)'.format(exeption_counter))
             exeption_counter = exeption_counter + 1
