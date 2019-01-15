@@ -60,13 +60,6 @@ def ios_connection_establisher(host, creds_file, command_file):
             pass
     return reconfigured
 
-def ios_connection_establisher2(host, creds_file, command_file):
-    print('Unpacking {} file'.format(creds_file))
-    with open(creds_file) as file:
-        creds = yaml.load(file)
-    creds_product = list(itertools.product(creds['usernames'], creds['passwords']))
-    print(creds_product)
-
 def devices_from_file(device_file):
     with open(device_file) as file:
         result = file.read().split('\n')
