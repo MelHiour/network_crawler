@@ -1,15 +1,16 @@
 import pexpect
 import concurrent.futures
 
-devices = [i for i in range(32897, 32922)]
-ids = [i for i in range(1,26)]
+devices = [i for i in range(32897, 32947)]
+ids = [i for i in range(1,51)]
 
-def provision(devices, ids, limit = 20):
+def provision(devices, ids, limit = 50):
     with concurrent.futures.ProcessPoolExecutor(max_workers=limit) as executor:
         executor.map(zero_provisioning, devices, ids)
 
 def zero_provisioning(port, id):
-    with pexpect.spawn('telnet 192.168.0.29 {}'.format(port)) as t:
+    with pexpect.spawn('telnet 192.168.0.29 {}'.format(port)) as t:i
+        print('Provisioning R{}i via port {}'.format(id, port)
         t.sendline()
         t.expect('no]:')
         t.sendline('no')
