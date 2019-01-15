@@ -60,7 +60,12 @@ def ios_connection_establisher(host, creds_file, command_file):
                 pass
     return reconfigured
 
-
+def ios_connection_establisher2(host, creds_file, command_file):
+    print('Unpacking {} file'.format(creds_file))
+    with open(creds_file) as file:
+        creds = yaml.load(file)
+    creds_product = list(itertools.product(creds['usernames'], creds['passwords'])
+    print(products)
 
 def devices_from_file(device_file):
     with open(device_file) as file:
@@ -71,5 +76,5 @@ if __name__ == '__main__':
     devices = devices_from_file('devices')
     ip_list = ping_ip_threads(devices)
     for ip in ip_list['alive']:
-        result = ios_connection_establisher(ip, 'creds.yml', 'commands')
+        result = ios_connection_establisher2(ip, 'creds.yml', 'commands')
         print(result)
