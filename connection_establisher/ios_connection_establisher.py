@@ -37,35 +37,35 @@ def ios_connection_establisher(host, creds_file, command_file):
         creds = yaml.load(file)
     exeption_counter = 1
     print('Starting for loops for usernames and passwords') 
-    for username in creds['usernames']:
-        for password in creds['passwords']:
-            print('Connecting to {}'.format(host))
-            print(username, password)
-            device_params = {'device_type': 'cisco_ios', 'ip': host, 'username': username, 'password': password,'secret': password}
-            try:
-                with netmiko.ConnectHandler(**device_params) as ssh:
-                    if ssh.check_config_mode():
-                        print('Currently in enable mode')
-                    else:
-                        print('Doing enable')
-                        ssh.enable()
-                    print('Sending commands from {}'.format(command_file))
-                    result = ssh.send_config_from_file(command_file)
-                    print('The result of operations is:')
-                    pprint(result)
-                reconfigured = host
-            except netmiko.ssh_exception.NetMikoAuthenticationException:
-                print('NetMikoAuthenticationException accurs: {} time(s)'.format(exeption_counter))
-                exeption_counter = exeption_counter + 1
-                pass
+    creds_product = list(itertools.product(creds['usernames'], creds['passwords']))
+    for creds in creds_product:
+        print('Connecting to {}'.format(host))
+        print(creds)
+        device_params = {'device_type': 'cisco_ios', 'ip': host, 'username': creds[0], 'password': creds[1],'secret': creds[1]}
+        try:
+            with netmiko.ConnectHandler(**device_params) as ssh:
+                if ssh.check_config_mode():
+                   print('Currently in enable mode')
+                else:
+                    print('Doing enable')
+                    ssh.enable()
+                print('Sending commands from {}'.format(command_file))
+                result = ssh.send_config_from_file(command_file)
+                print('The result of operations is:')
+                pprint(result)
+            reconfigured = host
+        except netmiko.ssh_exception.NetMikoAuthenticationException:
+            print('NetMikoAuthenticationException accurs: {} time(s)'.format(exeption_counter))
+            exeption_counter = exeption_counter + 1
+            pass
     return reconfigured
 
 def ios_connection_establisher2(host, creds_file, command_file):
     print('Unpacking {} file'.format(creds_file))
     with open(creds_file) as file:
         creds = yaml.load(file)
-    creds_product = list(itertools.product(creds['usernames'], creds['passwords'])
-    print(products)
+    creds_product = list(itertools.product(creds['usernames'], creds['passwords']))
+    print(creds_product)
 
 def devices_from_file(device_file):
     with open(device_file) as file:
@@ -76,5 +76,5 @@ if __name__ == '__main__':
     devices = devices_from_file('devices')
     ip_list = ping_ip_threads(devices)
     for ip in ip_list['alive']:
-        result = ios_connection_establisher2(ip, 'creds.yml', 'commands')
+        result = ios_connection_establisher(ip, 'creds.yml', 'commands')
         print(result)
