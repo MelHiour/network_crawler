@@ -34,6 +34,8 @@ def zero_provisioning(port, id):
         t.expect('[>#]')
         t.sendline('enable secret melhiour')
         t.expect('[>#]')
+        t.sendline('ip route 0.0.0.0 0.0.0.0 192.168.30.224')
+        t.expect('[>#]')
         t.sendline('line vty 0 4')
         t.expect('[>#]')
         t.sendline('login local')
