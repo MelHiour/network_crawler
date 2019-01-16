@@ -1,2 +1,0 @@
-# pynet
-Just a test
