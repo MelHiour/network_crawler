@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-'''
-    Just a push test with idents
-'''
 import yaml
 import subprocess
 from pprint import pprint
