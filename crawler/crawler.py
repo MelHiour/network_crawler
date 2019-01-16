@@ -1,8 +1,8 @@
 import argparse
 from pprint import pprint
-import crawler_modules
+import crawler_modules as cr
 
-devices = devices_from_file('data/devices')
-ip_list = ping_ip_threads(devices)
-result = connection_maker_threads2(ip_list['alive'], 'data/creds.yml', 'data/commands')
+devices = cr.devices_from_file('data/devices')
+ip_list = cr.ping_ip_addresses(devices)
+result = cr.connect_and_send_parallel(ip_list['alive'], 'data/creds.yml', 'data/commands')
 pprint(result)
