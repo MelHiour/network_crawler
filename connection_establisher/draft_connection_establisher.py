@@ -87,4 +87,4 @@ if __name__ == '__main__':
     devices = devices_from_file('devices')
     ip_list = ping_ip_threads(devices)
     result = connection_maker_threads2(ip_list['alive'], 'creds.yml', 'commands')
-    print(result)
+    pprint(result)
