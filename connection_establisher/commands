@@ -1,3 +1,1 @@
 username user1 secret user1
-line vty 0
-login local

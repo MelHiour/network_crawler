@@ -65,18 +65,18 @@ def ios_connection_establisher(host, creds_file, command_file):
     with open(creds_file) as file:
         creds = yaml.load(file)
     creds_product = list(itertools.product(creds['usernames'], creds['passwords']))
+    output = {}
     for creds in creds_product:
         device_params = {'device_type': 'cisco_ios', 'ip': host, 'username': creds[0], 'password': creds[1],'secret': creds[1]}
         try:
             with netmiko.ConnectHandler(**device_params) as ssh:
                 ssh.enable()
                 result = ssh.send_config_from_file(command_file)
-            reconfigured = host
+            output[host] = result
             break
         except netmiko.ssh_exception.NetMikoAuthenticationException:
-            reconfigured = None
             pass
-    return reconfigured
+    return output
 
 def devices_from_file(device_file):
     with open(device_file) as file:
