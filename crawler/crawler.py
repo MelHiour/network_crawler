@@ -9,8 +9,9 @@ parser.add_argument('--commands', action='store', dest='command_file', required=
 parser.add_argument('--ping', action='store_true', dest='ping')
 parser.add_argument('--no-ping', action='store_false', dest='ping')
 parser.set_defaults(ping = True)
-args = parser_args()
-print(args)
+args = parser.parse_args()
+
+print(args.device_file)
 
 #devices = cr.devices_from_file('data/devices')
 #ip_list = cr.ping_ip_addresses(devices)
