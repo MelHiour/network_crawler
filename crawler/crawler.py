@@ -16,5 +16,5 @@ args = parser.parse_args()
 
 devices = cr.devices_from_file(args.device_file)
 ip_list = cr.ping_ip_addresses(devices)
-result = cr.connect_and_send_parallel(ip_list['alive'], creds_file, command_file)
+result = cr.connect_and_send_parallel(ip_list['alive'], args.creds_file, args.command_file)
 pprint(result)
