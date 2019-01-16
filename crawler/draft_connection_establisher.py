@@ -31,7 +31,7 @@ def connection_maker(host, creds, command_file):
                     'username': creds[0],
                     'password': creds[1],
                     'secret': creds[1]}
-    print('Tryin {}, {} on {}'.format(creds[0], creds[1], host))
+    print('Trying {}, {} on {}'.format(creds[0], creds[1], host))
     try:
         with netmiko.ConnectHandler(**device_params) as ssh:
             ssh.enable()
