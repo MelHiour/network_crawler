@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
-
+'''
+    Just a push test with idents
+'''
 import yaml
 import subprocess
 from pprint import pprint
 from tabulate import tabulate
 import concurrent.futures
-import netmiko 
+import netmiko
 import itertools
 
 def ping_ip_address(ip):
@@ -16,7 +18,7 @@ def ping_ip_address(ip):
         return {'dead':ip}
 
 def ping_ip_threads(ips, type = 'process'):
-    if type == 'process': 
+    if type == 'process':
         with concurrent.futures.ProcessPoolExecutor(max_workers=len(ips)) as executor:
             pinger_result = list(executor.map(ping_ip_address, ips))
     elif type == 'thread':
@@ -60,8 +62,8 @@ def connection_maker_threads2(hosts, creds_file, command_file):
     with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
         grabber = list(executor.map(ios_connection_establisher, hosts, itertools.repeat(creds_file), itertools.repeat(command_file)))
     return grabber
-        
-def ios_connection_establisher(host, creds_file, command_file): 
+
+def ios_connection_establisher(host, creds_file, command_file):
     with open(creds_file) as file:
         creds = yaml.load(file)
     creds_product = list(itertools.product(creds['usernames'], creds['passwords']))
