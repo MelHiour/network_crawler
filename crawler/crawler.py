@@ -22,17 +22,12 @@ args = parser.parse_args()
 
 if args.device_list:
     devices = [i for i in args.device_list.split(',')]
-    print(devices)
 elif args.device_file:
     devices = cr.devices_from_file(args.device_file)
-    print(devices)
 
 if not args.ping:
-    print(devices, args.creds_file, args.command_file)
-    #result = cr.connect_and_send_parallel(devices, args.creds_file, args.command_file)
+    result = cr.connect_and_send_parallel(devices, args.creds_file, args.command_file)
 else:
     ip_list = cr.ping_ip_addresses(devices)
-    print(ip_list['alive'], args.creds_file, args.command_file)
-    #result = cr.connect_and_send_parallel(ip_list['alive'], args.creds_file, args.command_file)
-
-#pprint(result)
+    result = cr.connect_and_send_parallel(ip_list['alive'], args.creds_file, args.command_file)
+pprint(result)
