@@ -14,9 +14,7 @@ parser.add_argument('--no-ping',
 parser.set_defaults(ping = True)
 args = parser.parse_args()
 
-print(args.device_file)
-
-#devices = cr.devices_from_file('data/devices')
-#ip_list = cr.ping_ip_addresses(devices)
-#result = cr.connect_and_send_parallel(ip_list['alive'], 'data/creds.yml', 'data/commands')
-#pprint(result)
+devices = cr.devices_from_file(args.device_file)
+ip_list = cr.ping_ip_addresses(devices)
+result = cr.connect_and_send_parallel(ip_list['alive'], creds_file, command_file)
+pprint(result)
