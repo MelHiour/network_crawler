@@ -7,6 +7,7 @@ import crawler_modules as cr
 parse_desc= '''
 Crawler Script descritopn will be here...
 '''
+print('     | "Network crawler" script started')
 
 parser = argparse.ArgumentParser(description=parse_desc)
 
@@ -40,6 +41,7 @@ parser.add_argument('-r',
                     action='store', dest='command_file', required=True, help='Path to file with comamnds list to be executed')
 parser.set_defaults(ping = True, debug = False, brief = False)
 args = parser.parse_args()
+print('DONE | Arguments parsed and validated')
 
 if args.device_list:
     devices = [i for i in args.device_list.split(',')]
@@ -62,7 +64,7 @@ else:
     else:
         print('WARN | All devices are dead...')
 
-if not brief:
+if not args.brief:
     print('INFO | The following commands have been sent')
     print(tabulate([(key,value) for items in result for key,value in items.items()], headers = ['IP', 'OUTPUT'], tablefmt='fancy_grid'))
 else:
