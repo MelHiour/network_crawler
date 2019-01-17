@@ -1,3 +1,4 @@
+import yaml
 import argparse
 from pprint import pprint
 from tabulate import tabulate
@@ -18,11 +19,16 @@ ping_group.add_argument('--ping',
                     action='store_true', dest='ping', help='Enable ping test(default)')
 ping_group.add_argument('--no-ping',
                     action='store_false', dest='ping', help='Skip ping test')
+debug_group = parser.add_mutually_exclusive_group()
+debug_group.add_argument('--debug',
+                    action='store_true', dest='debug', help='Enable debug')
+debug_group.add_argument('--no-debug',
+                    action='store_false', dest='debug', help='Disable debug.yml (default)')
 parser.add_argument('-c',
                     action='store', dest='creds_file', required=True, help='Path to file with credentials')
 parser.add_argument('-r',
                     action='store', dest='command_file', required=True, help='Path to file with comamnds list to be executed')
-parser.set_defaults(ping = True)
+parser.set_defaults(ping = True, debug = False)
 args = parser.parse_args()
 
 # Getting device list
@@ -49,4 +55,8 @@ else:
     else:
         print('    | All devices are dead...')
 
-print(ip_list, devices, result)
+if args.debug:
+    print('    | Writing data to debug.yml')
+    with open('debug.yml', 'w') as file:
+        to_yaml = {'ARGS': args, 'IP_LIST': ip_list, 'DEVICES': devices, 'RESULT': result}
+        yaml.dump(to_yaml, file, default_flow_style=False)

@@ -42,7 +42,7 @@ def connect_and_send(host, creds_file, command_file):
                         'username': creds[0],
                         'password': creds[1],
                         'secret': creds[1],
-                        'timeout': 20}
+                        'timeout': 15}
         try:
             with netmiko.ConnectHandler(**device_params) as ssh:
                 ssh.enable()
@@ -55,7 +55,7 @@ def connect_and_send(host, creds_file, command_file):
             pass
     return output
 
-def connect_and_send_parallel(hosts, creds_file, command_file, limit = 50):
+def connect_and_send_parallel(hosts, creds_file, command_file, limit = 30):
     with Halo(text='| Connecting to devices and sending commands...', spinner='simpleDotsScrolling'):
         with concurrent.futures.ThreadPoolExecutor(max_workers=limit) as executor:
             grabber = list(executor.map(connect_and_send,

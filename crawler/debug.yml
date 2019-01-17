@@ -1,0 +1,36 @@
+ARGS: !!python/object:argparse.Namespace
+  command_file: data/commands
+  creds_file: data/creds.yml
+  debug: true
+  device_file: null
+  device_list: 192.168.30.2,192.168.30.3,192.168.0.2
+  ping: true
+DEVICES:
+- 192.168.30.2
+- 192.168.30.3
+- 192.168.0.2
+IP_LIST:
+  alive:
+  - 192.168.30.2
+  - 192.168.30.3
+  dead:
+  - 192.168.0.2
+RESULT:
+- 192.168.30.2: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R2(config)#username user1 secret user1
+
+    R2(config)#end
+
+    R2#'
+- 192.168.30.3: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R3(config)#username user1 secret user1
+
+    R3(config)#end
+
+    R3#'
