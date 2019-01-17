@@ -30,7 +30,6 @@ def ping_ip_addresses(ips, limit = 30):
     return ip_list
 
 def connect_and_send(host, creds_file, command_file):
-    print('Trying {}'.format(host))
     if not host:
         return ('No device to connect')
     with open(creds_file) as file:
