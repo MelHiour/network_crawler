@@ -2,6 +2,7 @@ import argparse
 from pprint import pprint
 from tabulate import tabulate
 import crawler_modules as cr
+
 parse_desc= '''
 Crawler Script descritopn will be here...
 '''
@@ -24,16 +25,18 @@ parser.add_argument('-r',
 parser.set_defaults(ping = True)
 args = parser.parse_args()
 
-
+# Getting device list
 if args.device_list:
     print('    | Processing devices from provided list "{}"'.format(args.device_list))
     devices = [i for i in args.device_list.split(',')]
 elif args.device_file:
     print('    | Processing devices from provided file "{}"'.format(args.device_file))
     devices = cr.devices_from_file(args.device_file)
+
 if not args.ping:
     print('    | Skipping ping check')
     result = cr.connect_and_send_parallel(devices, args.creds_file, args.command_file)
+    print(tabulate([(key,value) for items in result for key,value in items.items()], headers = ['IP', 'OUTPUT'], tablefmt='fancy_grid'))
 else:
     ip_list = cr.ping_ip_addresses(devices)
     if ip_list['alive']:
@@ -44,4 +47,6 @@ else:
         print('    | The following commands have been sent')
         print(tabulate([(key,value) for items in result for key,value in items.items()], headers = ['IP', 'OUTPUT'], tablefmt='fancy_grid'))
     else:
-        print('    | All devices are dead...') 
+        print('    | All devices are dead...')
+
+print(ip_list, devices, result)
