@@ -50,7 +50,7 @@ else:
     if ip_list['alive']:
         print('INFO | There are some alive devices noticed... Processing...')
         if ip_list['dead']:
-            print('WARN | These devices are dead: {}'.format(ip for ip in ip_list['dead']))
+            print('WARN | These devices are dead: {}'.format(ip_list['dead']))
         result = cr.connect_and_send_parallel(ip_list['alive'], args.creds_file, args.command_file)
         print('INFO | The following commands have been sent')
         print(tabulate([(key,value) for items in result for key,value in items.items()], headers = ['IP', 'OUTPUT'], tablefmt='fancy_grid'))
