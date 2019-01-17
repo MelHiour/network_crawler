@@ -58,5 +58,5 @@ else:
 if args.debug:
     print('    | Writing data to debug.yml')
     with open('debug.yml', 'w') as file:
-        to_yaml = {'ARGS': args, 'IP_LIST': ip_list, 'DEVICES': devices, 'RESULT': result}
+        to_yaml = {'ARGS': args, 'PINGED_IPS': ip_list, 'DEVICES': devices, 'RESULT': result}
         yaml.dump(to_yaml, file, default_flow_style=False)
