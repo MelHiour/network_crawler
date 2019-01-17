@@ -30,6 +30,7 @@ def ping_ip_addresses(ips, limit = 30):
     return ip_list
 
 def connect_and_send(host, creds_file, command_file):
+    print('Trying {}'.format(host))
     if not host:
         return ('No device to connect')
     with open(creds_file) as file:
@@ -42,7 +43,7 @@ def connect_and_send(host, creds_file, command_file):
                         'username': creds[0],
                         'password': creds[1],
                         'secret': creds[1],
-                        'timeout': 10}
+                        'timeout': 20}
         try:
             with netmiko.ConnectHandler(**device_params) as ssh:
                 ssh.enable()
