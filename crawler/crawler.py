@@ -79,7 +79,7 @@ else:
     for item in ip_list['dead']:
         brief_view.append((item, 'Skipped'))
     brief_view.sort(key=cr.ip_sort)
-    print(tabulate(brief_view, headers = ['IP', 'STATUS']))
+    print(tabulate(brief_view, headers = ['IP', 'STATUS'], tablefmt='rst'))
 
 if args.debug:
     print('INFO | Writing data to debug.yml')
