@@ -15,6 +15,12 @@ dots = {"interval": 200,
             "  ..",
             "   .",
             "    "]}
+def split_ip(ip):
+    return tuple(int(part) for part in ip.split('.'))
+
+def ip_sort(item):
+    return split_ip(item[0])
+
 def devices_from_file(device_file):
     with open(device_file) as file:
         result = file.read().split('\n')
