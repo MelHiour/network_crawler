@@ -59,7 +59,7 @@ def connect_and_send(host, creds_file, command_file):
                         'username': creds[0],
                         'password': creds[1],
                         'secret': creds[1],
-                        'timeout': 15}
+                        'timeout': 10}
         try:
             with netmiko.ConnectHandler(**device_params) as ssh:
                 ssh.enable()
