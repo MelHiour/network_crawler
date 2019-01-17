@@ -33,30 +33,32 @@ args = parser.parse_args()
 
 # Getting device list
 if args.device_list:
-    print('    | Processing devices from provided list "{}"'.format(args.device_list))
     devices = [i for i in args.device_list.split(',')]
+    print('DONE | Processing devices from provided list "{}"'.format(args.device_list))
 elif args.device_file:
-    print('    | Processing devices from provided file "{}"'.format(args.device_file))
     devices = cr.devices_from_file(args.device_file)
+    print('DONE | Processing devices from provided file "{}"'.format(args.device_file))
 
 if not args.ping:
-    print('    | Skipping ping check')
+    print('INFO | Skipping ping check')
+    ip_list = None
     result = cr.connect_and_send_parallel(devices, args.creds_file, args.command_file)
+    print('INFO | The following commands have been sent')
     print(tabulate([(key,value) for items in result for key,value in items.items()], headers = ['IP', 'OUTPUT'], tablefmt='fancy_grid'))
 else:
     ip_list = cr.ping_ip_addresses(devices)
     if ip_list['alive']:
-        print('    | There are some alive devices noticed... Processing...')
+        print('INFO | There are some alive devices noticed... Processing...')
         if ip_list['dead']:
-            print('    | These devices are dead: {}'.format(ip_list['dead']))
+            print('WARN | These devices are dead: {}'.format(ip for ip in ip_list['dead']))
         result = cr.connect_and_send_parallel(ip_list['alive'], args.creds_file, args.command_file)
-        print('    | The following commands have been sent')
+        print('INFO | The following commands have been sent')
         print(tabulate([(key,value) for items in result for key,value in items.items()], headers = ['IP', 'OUTPUT'], tablefmt='fancy_grid'))
     else:
-        print('    | All devices are dead...')
+        print('WARN | All devices are dead...')
 
 if args.debug:
-    print('    | Writing data to debug.yml')
+    print('INFO | Writing data to debug.yml')
     with open('debug.yml', 'w') as file:
         to_yaml = {'ARGS': args, 'PINGED_IPS': ip_list, 'DEVICES': devices, 'RESULT': result}
         yaml.dump(to_yaml, file, default_flow_style=False)

@@ -2,20 +2,123 @@ ARGS: !!python/object:argparse.Namespace
   command_file: data/commands
   creds_file: data/creds.yml
   debug: true
-  device_file: null
-  device_list: 192.168.30.2,192.168.30.3,192.168.0.2
+  device_file: data/devices
+  device_list: null
   ping: true
 DEVICES:
+- 192.168.30.1
 - 192.168.30.2
 - 192.168.30.3
-- 192.168.0.2
-IP_LIST:
+- 192.168.30.4
+- 192.168.30.5
+- 192.168.30.6
+- 192.168.30.7
+- 192.168.30.8
+- 192.168.30.9
+- 192.168.30.10
+- 192.168.30.11
+- 192.168.30.12
+- 192.168.30.13
+- 192.168.30.14
+- 192.168.30.15
+- 192.168.30.16
+- 192.168.30.17
+- 192.168.30.18
+- 192.168.30.19
+- 192.168.30.20
+- 192.168.30.21
+- 192.168.30.22
+- 192.168.30.23
+- 192.168.30.24
+- 192.168.30.25
+- 192.168.30.26
+- 192.168.30.27
+- 192.168.30.28
+- 192.168.30.29
+- 192.168.30.30
+- 192.168.30.31
+- 192.168.30.32
+- 192.168.30.33
+- 192.168.30.34
+- 192.168.30.35
+- 192.168.30.36
+- 192.168.30.37
+- 192.168.30.38
+- 192.168.30.39
+- 192.168.30.40
+- 192.168.30.41
+- 192.168.30.42
+- 192.168.30.43
+- 192.168.30.44
+- 192.168.30.45
+- 192.168.30.46
+- 192.168.30.47
+- 192.168.30.48
+- 192.168.30.49
+- 192.168.30.50
+PINGED_IPS:
   alive:
+  - 192.168.30.1
   - 192.168.30.2
   - 192.168.30.3
+  - 192.168.30.4
+  - 192.168.30.5
+  - 192.168.30.6
+  - 192.168.30.7
+  - 192.168.30.9
+  - 192.168.30.10
+  - 192.168.30.11
+  - 192.168.30.12
+  - 192.168.30.13
+  - 192.168.30.14
+  - 192.168.30.15
+  - 192.168.30.16
+  - 192.168.30.17
+  - 192.168.30.18
+  - 192.168.30.19
+  - 192.168.30.20
+  - 192.168.30.21
+  - 192.168.30.22
+  - 192.168.30.23
+  - 192.168.30.24
+  - 192.168.30.25
+  - 192.168.30.26
+  - 192.168.30.27
+  - 192.168.30.28
+  - 192.168.30.29
+  - 192.168.30.30
+  - 192.168.30.31
+  - 192.168.30.32
+  - 192.168.30.33
+  - 192.168.30.34
+  - 192.168.30.35
+  - 192.168.30.36
+  - 192.168.30.37
+  - 192.168.30.38
+  - 192.168.30.39
+  - 192.168.30.40
+  - 192.168.30.41
+  - 192.168.30.42
+  - 192.168.30.43
+  - 192.168.30.44
+  - 192.168.30.45
+  - 192.168.30.46
+  - 192.168.30.47
+  - 192.168.30.48
+  - 192.168.30.50
   dead:
-  - 192.168.0.2
+  - 192.168.30.8
+  - 192.168.30.49
 RESULT:
+- 192.168.30.1: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R1(config)#username user1 secret user1
+
+    R1(config)#end
+
+    R1#'
 - 192.168.30.2: 'config term
 
     Enter configuration commands, one per line.  End with CNTL/Z.
@@ -25,12 +128,353 @@ RESULT:
     R2(config)#end
 
     R2#'
-- 192.168.30.3: 'config term
+- {}
+- 192.168.30.4: 'config term
 
     Enter configuration commands, one per line.  End with CNTL/Z.
 
-    R3(config)#username user1 secret user1
+    R4(config)#username user1 secret user1
 
-    R3(config)#end
+    R4(config)#end
 
-    R3#'
+    R4#'
+- 192.168.30.5: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R5(config)#username user1 secret user1
+
+    R5(config)#end
+
+    R5#'
+- 192.168.30.6: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R6(config)#username user1 secret user1
+
+    R6(config)#end
+
+    R6#'
+- 192.168.30.7: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R7(config)#username user1 secret user1
+
+    R7(config)#end
+
+    R7#'
+- 192.168.30.9: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R9(config)#username user1 secret user1
+
+    R9(config)#end
+
+    R9#'
+- {}
+- 192.168.30.11: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R11(config)#username user1 secret user1
+
+    R11(config)#end
+
+    R11#'
+- 192.168.30.12: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R12(config)#username user1 secret user1
+
+    R12(config)#end
+
+    R12#'
+- {}
+- 192.168.30.14: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R14(config)#username user1 secret user1
+
+    R14(config)#end
+
+    R14#'
+- 192.168.30.15: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R15(config)#username user1 secret user1
+
+    R15(config)#end
+
+    R15#'
+- 192.168.30.16: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R16(config)#username user1 secret user1
+
+    R16(config)#end
+
+    R16#'
+- 192.168.30.17: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R17(config)#username user1 secret user1
+
+    R17(config)#end
+
+    R17#'
+- {}
+- 192.168.30.19: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R19(config)#username user1 secret user1
+
+    R19(config)#end
+
+    R19#'
+- 192.168.30.20: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R20(config)#username user1 secret user1
+
+    R20(config)#end
+
+    R20#'
+- {}
+- 192.168.30.22: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R22(config)#username user1 secret user1
+
+    R22(config)#end
+
+    R22#'
+- 192.168.30.23: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R23(config)#username user1 secret user1
+
+    R23(config)#end
+
+    R23#'
+- 192.168.30.24: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R24(config)#username user1 secret user1
+
+    R24(config)#end
+
+    R24#'
+- 192.168.30.25: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R25(config)#username user1 secret user1
+
+    R25(config)#end
+
+    R25#'
+- 192.168.30.26: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R26(config)#username user1 secret user1
+
+    R26(config)#end
+
+    R26#'
+- 192.168.30.27: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R27(config)#username user1 secret user1
+
+    R27(config)#end
+
+    R27#'
+- 192.168.30.28: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R28(config)#username user1 secret user1
+
+    R28(config)#end
+
+    R28#'
+- 192.168.30.29: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R29(config)#username user1 secret user1
+
+    R29(config)#end
+
+    R29#'
+- 192.168.30.30: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R30(config)#username user1 secret user1
+
+    R30(config)#end
+
+    R30#'
+- 192.168.30.31: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R31(config)#username user1 secret user1
+
+    R31(config)#end
+
+    R31#'
+- {}
+- {}
+- 192.168.30.34: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R34(config)#username user1 secret user1
+
+    R34(config)#end
+
+    R34#'
+- 192.168.30.35: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R35(config)#username user1 secret user1
+
+    R35(config)#end
+
+    R35#'
+- 192.168.30.36: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R36(config)#username user1 secret user1
+
+    R36(config)#end
+
+    R36#'
+- 192.168.30.37: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R37(config)#username user1 secret user1
+
+    R37(config)#end
+
+    R37#'
+- 192.168.30.38: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R38(config)#username user1 secret user1
+
+    R38(config)#end
+
+    R38#'
+- 192.168.30.39: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R39(config)#username user1 secret user1
+
+    R39(config)#end
+
+    R39#'
+- 192.168.30.40: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R40(config)#username user1 secret user1
+
+    R40(config)#end
+
+    R40#'
+- 192.168.30.41: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R41(config)#username user1 secret user1
+
+    R41(config)#end
+
+    R41#'
+- {}
+- 192.168.30.43: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R43(config)#username user1 secret user1
+
+    R43(config)#end
+
+    R43#'
+- 192.168.30.44: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R44(config)#username user1 secret user1
+
+    R44(config)#end
+
+    R44#'
+- 192.168.30.45: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R45(config)#username user1 secret user1
+
+    R45(config)#end
+
+    R45#'
+- 192.168.30.46: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R46(config)#username user1 secret user1
+
+    R46(config)#end
+
+    R46#'
+- 192.168.30.47: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R47(config)#username user1 secret user1
+
+    R47(config)#end
+
+    R47#'
+- 192.168.30.48: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R48(config)#username user1 secret user1
+
+    R48(config)#end
+
+    R48#'
+- 192.168.30.50: 'config term
+
+    Enter configuration commands, one per line.  End with CNTL/Z.
+
+    R50(config)#username user1 secret user1
+
+    R50(config)#end
+
+    R50#'

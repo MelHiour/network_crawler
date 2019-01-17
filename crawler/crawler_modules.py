@@ -5,6 +5,16 @@ import netmiko
 import itertools
 from halo import Halo
 
+dots = {"interval": 200,
+        "frames": [
+            ".   ",
+            "..  ",
+            "... ",
+            "....",
+            " ...",
+            "  ..",
+            "   .",
+            "    "]}
 def devices_from_file(device_file):
     with open(device_file) as file:
         result = file.read().split('\n')
@@ -18,9 +28,10 @@ def ping_ip_address(ip):
         return {'dead':ip}
 
 def ping_ip_addresses(ips, limit = 30):
-    with Halo(text='| Pinging devices...', spinner='simpleDotsScrolling'):
+    with Halo(text=' | Pinging devices...', spinner=dots) as spinner:
         with concurrent.futures.ProcessPoolExecutor(max_workers=limit) as executor:
             pinger_result = list(executor.map(ping_ip_address, ips))
+    spinner.stop_and_persist('DONE')
     ip_list = {'alive':[], 'dead':[]}
     for item in pinger_result:
         if 'alive' in item.keys():
@@ -52,14 +63,23 @@ def connect_and_send(host, creds_file, command_file):
         except netmiko.ssh_exception.NetMikoAuthenticationException:
             pass
         except netmiko.ssh_exception.NetMikoTimeoutException:
-            pass
+            output[host] = 'Timeout'
+            break
     return output
 
+def connect_and_send_serial(hosts, creds_file, command_file):
+    result_list = []
+    for host in hosts:
+        result = connect_and_send(host, creds_file, command_file)
+        result_list.append(result)
+    return result_list
+
 def connect_and_send_parallel(hosts, creds_file, command_file, limit = 30):
-    with Halo(text='| Connecting to devices and sending commands...', spinner='simpleDotsScrolling'):
+    with Halo(text='| Connecting to devices and sending commands...', spinner=dots) as spinner:
         with concurrent.futures.ThreadPoolExecutor(max_workers=limit) as executor:
             grabber = list(executor.map(connect_and_send,
                                         hosts,
                                         itertools.repeat(creds_file),
                                         itertools.repeat(command_file)))
+        spinner.stop_and_persist('DONE')
     return grabber
