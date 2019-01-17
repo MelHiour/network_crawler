@@ -44,7 +44,6 @@ if not args.ping:
     ip_list = None
     result = cr.connect_and_send_parallel(devices, args.creds_file, args.command_file)
     print('INFO | The following commands have been sent')
-    print(tabulate([(key,value) for items in result for key,value in items.items()], headers = ['IP', 'OUTPUT'], tablefmt='fancy_grid'))
 else:
     ip_list = cr.ping_ip_addresses(devices)
     if ip_list['alive']:
@@ -53,9 +52,21 @@ else:
             print('WARN | These devices are dead: {}'.format(ip_list['dead']))
         result = cr.connect_and_send_parallel(ip_list['alive'], args.creds_file, args.command_file)
         print('INFO | The following commands have been sent')
-        print(tabulate([(key,value) for items in result for key,value in items.items()], headers = ['IP', 'OUTPUT'], tablefmt='fancy_grid'))
     else:
         print('WARN | All devices are dead...')
+
+brief = False
+if not brief:
+    print(tabulate([(key,value) for items in result for key,value in items.items()], headers = ['IP', 'OUTPUT'], tablefmt='fancy_grid'))
+else:
+    brief_view = []
+    for items in result
+        for key,value in items.items()
+            if not 'Timeout' in value:
+                brief_view.append((key, 'Succeeded')
+            else:
+                brief_view.append((key, value)
+    print(tabulate(brief_view, headers = ['IP', 'STATUS']))
 
 if args.debug:
     print('INFO | Writing data to debug.yml')
