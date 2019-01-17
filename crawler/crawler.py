@@ -60,8 +60,13 @@ if not brief:
     print(tabulate([(key,value) for items in result for key,value in items.items()], headers = ['IP', 'OUTPUT'], tablefmt='fancy_grid'))
 else:
     brief_view = []
+<<<<<<< HEAD
     for items in result:
         for key,value in items.items():
+=======
+    for items in result
+        for key,value in items.items()
+>>>>>>> 512b727110c430cf13618c090cd4ed4f563be060
             if not 'Timeout' in value:
                 brief_view.append((key, 'Succeeded')
             else:
