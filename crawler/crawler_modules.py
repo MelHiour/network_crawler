@@ -3,6 +3,7 @@ import subprocess
 import concurrent.futures
 import netmiko
 import itertools
+from halo import Halo
 
 def devices_from_file(device_file):
     with open(device_file) as file:
@@ -17,8 +18,9 @@ def ping_ip_address(ip):
         return {'dead':ip}
 
 def ping_ip_addresses(ips, limit = 30):
-    with concurrent.futures.ProcessPoolExecutor(max_workers=limit) as executor:
-        pinger_result = list(executor.map(ping_ip_address, ips))
+    with Halo(text='| Pinging devices...', spinner='simpleDotsScrolling'):
+        with concurrent.futures.ProcessPoolExecutor(max_workers=limit) as executor:
+            pinger_result = list(executor.map(ping_ip_address, ips))
     ip_list = {'alive':[], 'dead':[]}
     for item in pinger_result:
         if 'alive' in item.keys():
@@ -28,6 +30,8 @@ def ping_ip_addresses(ips, limit = 30):
     return ip_list
 
 def connect_and_send(host, creds_file, command_file):
+    if not host:
+        return ('No device to connect')
     with open(creds_file) as file:
         creds = yaml.load(file)
     creds_product = list(itertools.product(creds['usernames'], creds['passwords']))
@@ -52,9 +56,10 @@ def connect_and_send(host, creds_file, command_file):
     return output
 
 def connect_and_send_parallel(hosts, creds_file, command_file, limit = 50):
-    with concurrent.futures.ThreadPoolExecutor(max_workers=limit) as executor:
-        grabber = list(executor.map(connect_and_send,
-                                    hosts,
-                                    itertools.repeat(creds_file),
-                                    itertools.repeat(command_file)))
+    with Halo(text='| Connecting to devices and sending commands...', spinner='simpleDotsScrolling'):
+        with concurrent.futures.ThreadPoolExecutor(max_workers=limit) as executor:
+            grabber = list(executor.map(connect_and_send,
+                                        hosts,
+                                        itertools.repeat(creds_file),
+                                        itertools.repeat(command_file)))
     return grabber
