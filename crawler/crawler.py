@@ -43,6 +43,7 @@ parser.add_argument('-t',
                     action='store', dest='connect_threads', required=False, help='The amount of ping threads')
 parser.add_argument('-p',
                     action='store', dest='ping_process', required=False, help='The amount of simultanious connection')
+
 parser.set_defaults(ping = True, debug = False, brief = False, connect_threads = 30, ping_process = 30)
 args = parser.parse_args()
 print('DONE | Arguments parsed and validated')
@@ -57,14 +58,14 @@ elif args.device_file:
 if not args.ping:
     print('INFO | Skipping ping check')
     ip_list = None
-    result = cr.connect_and_send_parallel(devices, args.creds_file, args.command_file, limit=args.connect_threads)
+    result = cr.connect_and_send_parallel(devices, args.creds_file, args.command_file, limit=int(args.connect_threads))
 else:
-    ip_list = cr.ping_ip_addresses(devices, limit =args.ping_process)
+    ip_list = cr.ping_ip_addresses(devices, limit =int(args.ping_process))
     if ip_list['alive']:
         print('INFO | There are some alive devices noticed... Processing...')
         if ip_list['dead']:
             print('WARN | These devices are dead: {}'.format(ip_list['dead']))
-        result = cr.connect_and_send_parallel(ip_list['alive'], args.creds_file, args.command_file, limit=args.connect_threads)
+        result = cr.connect_and_send_parallel(ip_list['alive'], args.creds_file, args.command_file, limit=int(args.connect_threads))
     else:
         print('WARN | All devices are dead...')
 
