@@ -9,7 +9,9 @@ start = datetime.datetime.now()
 parse_desc= '''
 Crawler Script descritopn will be here...
 '''
-print('\n'+'='*32+'\n'+"Network crawler" script started'+'\n'+'='*32)
+print('='*32)
+print("Network crawler" script started')
+print('='*32)
 
 parser = argparse.ArgumentParser(description=parse_desc)
 
