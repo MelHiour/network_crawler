@@ -46,7 +46,7 @@ def ping_ip_addresses(ips, limit = 30):
             ip_list['dead'].append(item['dead'])
     return ip_list
 
-def connect_and_send(host, creds_file, command_file, one_creds = False):
+def connect_and_send(host, creds_file, command_file):
     with open(creds_file) as file:
         creds = yaml.load(file)
     creds_product = list(itertools.product(creds['usernames'], creds['passwords']))

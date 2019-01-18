@@ -17,6 +17,15 @@ device_group.add_argument('-d',
 device_group.add_argument('-l',
                     action='store', dest='device_list', help='List of IP addresses (ex. "10.10.1.2,10.10.1.3")')
 
+parser.add_argument('-c',
+                    action='store', dest='creds_file', required=True, help='Path to file with credentials')
+parser.add_argument('-r',
+                    action='store', dest='command_file', required=True, help='Path to file with comamnds list to be executed')
+parser.add_argument('-t',
+                    action='store', dest='connect_threads', required=False, help='The amount of simultanious connection')
+parser.add_argument('-p',
+                    action='store', dest='ping_process', required=False, help='The amount of ping processes')
+
 ping_group = parser.add_mutually_exclusive_group()
 ping_group.add_argument('--ping',
                     action='store_true', dest='ping', help='Enable ping test(default)')
@@ -34,16 +43,7 @@ brief_group.add_argument('--brief',
                     action='store_true', dest='brief', help='Enable brief output with summary information')
 brief_group.add_argument('--no-brief',
                     action='store_false', dest='brief', help='Returning output of commands per device (default)')
-
-parser.add_argument('-c',
-                    action='store', dest='creds_file', required=True, help='Path to file with credentials')
-parser.add_argument('-r',
-                    action='store', dest='command_file', required=True, help='Path to file with comamnds list to be executed')
-parser.add_argument('-t',
-                    action='store', dest='connect_threads', required=False, help='The amount of ping threads')
-parser.add_argument('-p',
-                    action='store', dest='ping_process', required=False, help='The amount of simultanious connection')
-
+                    
 parser.set_defaults(ping = True, debug = False, brief = False, connect_threads = 30, ping_process = 30)
 args = parser.parse_args()
 print('DONE | Arguments parsed and validated')
