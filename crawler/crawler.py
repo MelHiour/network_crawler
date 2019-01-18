@@ -1,3 +1,4 @@
+import re
 import yaml
 import argparse
 import datetime
@@ -7,8 +8,10 @@ import crawler_modules as cr
 
 start = datetime.datetime.now()
 parse_desc= '''
-Crawler Script descritopn will be here...
-'''
+A small script with a big name.
+How to send several commands to some devices if you do not know exact credential pair? This script is responding to this challenge.
+''''
+
 print('='*32)
 print('"Network crawler" script started')
 print('='*32)
@@ -19,7 +22,7 @@ device_group = parser.add_mutually_exclusive_group(required=True)
 device_group.add_argument('-d',
                     action='store', dest='device_file', help='Path to device file')
 device_group.add_argument('-l',
-                    action='store', dest='device_list', help='List of IP addresses (ex. "10.10.1.2,10.10.1.3")')
+                    action='store', dest='device_list', help='List of IP addresses (ex. "10.10.1.2, 10.10.1.3")')
 
 parser.add_argument('-c',
                     action='store', dest='creds_file', required=True, help='Path to file with credentials')
@@ -54,7 +57,7 @@ args = parser.parse_args()
 print('DONE | Arguments parsed and validated')
 
 if args.device_list:
-    devices = [i for i in args.device_list.split(',')]
+    devices = [i for i in re.split(', *', args.device_list)]
     print('DONE | Processing devices from provided list "{}"'.format(args.device_list))
 elif args.device_file:
     devices = cr.devices_from_file(args.device_file)
