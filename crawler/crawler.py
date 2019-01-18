@@ -29,7 +29,7 @@ parser.add_argument('-c',
 parser.add_argument('-r',
                     action='store', dest='command_file', required=True, help='Path to file with comamnds list to be executed')
 parser.add_argument('-t',
-                    action='store', dest='connect_threads', required=False, help='The amount of simultanious connection (30 by default)')
+                    action='store', dest='connect_threads', required=False, help='The amount of simultanious SSH connections (30 by default)')
 parser.add_argument('-p',
                     action='store', dest='ping_process', required=False, help='The amount of ping processes (30 by default)')
 
@@ -58,7 +58,7 @@ print('DONE | Arguments parsed and validated')
 
 if args.device_list:
     devices = [i for i in re.split(', *', args.device_list)]
-    print('DONE | Processing devices from provided list "{}"'.format(args.device_list))
+    print('DONE | Processing devices from provided list "{}"'.format(devices))
 elif args.device_file:
     devices = cr.devices_from_file(args.device_file)
     print('DONE | Processing devices from provided file "{}"'.format(args.device_file))
