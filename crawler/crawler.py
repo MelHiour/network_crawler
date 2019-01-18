@@ -9,7 +9,7 @@ start = time.time()
 parse_desc= '''
 Crawler Script descritopn will be here...
 '''
-print('\n'+'='*32+'"Network crawler" script started'+'\n'+'='*32)
+print('\n'+'='*32+'\n'+"Network crawler" script started'+'\n'+'='*32)
 
 parser = argparse.ArgumentParser(description=parse_desc)
 
@@ -91,7 +91,6 @@ else:
 
 end = time.time()
 exec_time = (end - start)
-pprint('Execution time: {}'.format(exec_time))
 
 if args.debug:
     print('INFO | Writing data to debug.yml')
