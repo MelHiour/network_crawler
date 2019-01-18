@@ -7,7 +7,7 @@ import crawler_modules as cr
 parse_desc= '''
 Crawler Script descritopn will be here...
 '''
-print('     | "Network crawler" script started')
+print('"Network crawler" script started'+'\n'+'='*32)
 
 parser = argparse.ArgumentParser(description=parse_desc)
 
