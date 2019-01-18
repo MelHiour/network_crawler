@@ -28,7 +28,7 @@ optional arguments:
   --no-brief          Returning output of commands per device (default)
 ```
 
-### Catalog structure
+### Catalog and files structure
 ```
 ├── crawler_modules.py      # All functions are stored here
 ├── crawler.py              # The script itself
@@ -103,6 +103,15 @@ python crawler.py -l "192.168.0.1, 192.168.0.2" -c data/creds.yml -r data/commad
 Creating debug.yml file with some usefull information (could be easily parsed) 
 ```
 python crawler.py -l "192.168.0.1, 192.168.0.2" -c data/creds.yml -r data/commads --no-ping --brief
+```
+
+### Result example
+without --brief specified (default)
+```
+```
+
+with --brief
+```
 ```
 
 ### Requirments
