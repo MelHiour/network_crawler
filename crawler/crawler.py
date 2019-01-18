@@ -7,7 +7,7 @@ import crawler_modules as cr
 parse_desc= '''
 Crawler Script descritopn will be here...
 '''
-print('"Network crawler" script started'+'\n'+'='*32)
+print('\n'+'='*32+'"Network crawler" script started'+'\n'+'='*32)
 
 parser = argparse.ArgumentParser(description=parse_desc)
 
@@ -70,10 +70,10 @@ else:
         print('WARN | All devices are dead...')
 
 if not args.brief:
-    print('INFO | The following commands have been sent')
+    print('INFO | The following commands have been sent\n')
     print(tabulate([(key,value) for items in result for key,value in items.items()], headers = ['IP', 'OUTPUT'], tablefmt='fancy_grid'))
 else:
-    print('INFO | Showing summary information')
+    print('INFO | Showing summary information\n')
     brief_view = []
     for items in result:
         for key,value in items.items():
