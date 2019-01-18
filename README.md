@@ -29,6 +29,16 @@ optional arguments:
 ```
 
 ### Catalog structure
+```
+.
+├── crawler_modules.py
+├── crawler.py
+├── data
+│   ├── commands
+│   ├── creds.yml
+│   └── devices
+└── debug.yml
+```
 
 ### Execution examples
 Try to exhaust the list of credentials data/creds.yml on all devices from file data/devices and run commands specified in data/commands 
