@@ -10,7 +10,11 @@ start = datetime.datetime.now()
 parse_desc= '''
 A small script with a big name.
 How to send several commands to some devices if you do not know exact credential pair? This script is responding to this challenge.
+<<<<<<< HEAD
 '''
+=======
+''''
+>>>>>>> 7b46418d8fcae0142faf791614d952e62e0f46bb
 
 print('='*32)
 print('"Network crawler" script started')
