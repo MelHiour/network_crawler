@@ -24,15 +24,9 @@ parser.add_argument('-c',
 parser.add_argument('-r',
                     action='store', dest='command_file', required=True, help='Path to file with comamnds list to be executed')
 parser.add_argument('-t',
-<<<<<<< HEAD
                     action='store', dest='connect_threads', required=False, help='The amount of simultanious connection (30 by default)')
 parser.add_argument('-p',
                     action='store', dest='ping_process', required=False, help='The amount of ping processes (30 by default)')
-=======
-                    action='store', dest='connect_threads', required=False, help='The amount of simultanious connection')
-parser.add_argument('-p',
-                    action='store', dest='ping_process', required=False, help='The amount of ping processes')
->>>>>>> b4a4b8a09eba0f0e87702326b59671e086effc45
 
 ping_group = parser.add_mutually_exclusive_group()
 ping_group.add_argument('--ping',
@@ -51,13 +45,10 @@ brief_group.add_argument('--brief',
                     action='store_true', dest='brief', help='Enable brief output with summary information')
 brief_group.add_argument('--no-brief',
                     action='store_false', dest='brief', help='Returning output of commands per device (default)')
-<<<<<<< HEAD
 
-=======
-                    
->>>>>>> b4a4b8a09eba0f0e87702326b59671e086effc45
 parser.set_defaults(ping = True, debug = False, brief = False, connect_threads = 30, ping_process = 30)
 args = parser.parse_args()
+
 print('DONE | Arguments parsed and validated')
 
 if args.device_list:
