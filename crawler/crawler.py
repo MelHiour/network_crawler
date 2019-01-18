@@ -1,6 +1,6 @@
 import yaml
 import argparse
-import dateitime
+import datetime
 from pprint import pprint
 from tabulate import tabulate
 import crawler_modules as cr
@@ -10,7 +10,7 @@ parse_desc= '''
 Crawler Script descritopn will be here...
 '''
 print('='*32)
-print("Network crawler" script started')
+print('"Network crawler" script started')
 print('='*32)
 
 parser = argparse.ArgumentParser(description=parse_desc)
@@ -92,10 +92,8 @@ else:
     print(tabulate(brief_view, headers = ['IP', 'STATUS'], tablefmt='rst'))
 
 end = datetime.datetime.now()
-exec_time = (end - start)
-
 if args.debug:
     print('INFO | Writing data to debug.yml')
     with open('debug.yml', 'w') as file:
-        to_yaml = {'ARGS': args, 'PINGED_IPS': ip_list, 'DEVICES': devices, 'RESULT': result, 'TIME': [start, end, exec_time]}
+        to_yaml = {'ARGS': args, 'PINGED_IPS': ip_list, 'DEVICES': devices, 'RESULT': result, 'TIME': [start, end]}
         yaml.dump(to_yaml, file, default_flow_style=False)
