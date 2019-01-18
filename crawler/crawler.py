@@ -57,14 +57,14 @@ elif args.device_file:
 if not args.ping:
     print('INFO | Skipping ping check')
     ip_list = None
-    result = cr.connect_and_send_parallel(devices, args.creds_file, args.command_file, limit=)
+    result = cr.connect_and_send_parallel(devices, args.creds_file, args.command_file, limit=args.connect_threads)
 else:
-    ip_list = cr.ping_ip_addresses(devices, limit =)
+    ip_list = cr.ping_ip_addresses(devices, limit =args.ping_process)
     if ip_list['alive']:
         print('INFO | There are some alive devices noticed... Processing...')
         if ip_list['dead']:
             print('WARN | These devices are dead: {}'.format(ip_list['dead']))
-        result = cr.connect_and_send_parallel(ip_list['alive'], args.creds_file, args.command_file, limit=)
+        result = cr.connect_and_send_parallel(ip_list['alive'], args.creds_file, args.command_file, limit=args.connect_threads)
     else:
         print('WARN | All devices are dead...')
 
