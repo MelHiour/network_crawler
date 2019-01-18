@@ -1,11 +1,11 @@
 import yaml
 import argparse
-import time
+import dateitime
 from pprint import pprint
 from tabulate import tabulate
 import crawler_modules as cr
 
-start = time.time()
+start = datetime.datetime.now()
 parse_desc= '''
 Crawler Script descritopn will be here...
 '''
@@ -89,7 +89,7 @@ else:
     brief_view.sort(key=cr.ip_sort)
     print(tabulate(brief_view, headers = ['IP', 'STATUS'], tablefmt='rst'))
 
-end = time.time()
+end = datetime.datetime.now()
 exec_time = (end - start)
 
 if args.debug:
