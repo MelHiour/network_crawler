@@ -157,6 +157,6 @@ IP             STATUS
 ```
 
 ### Requirments
-1. The script is currently supporting only Cisco IOS devices.
 
 ### Limitation
+1. The script is currently tested only on Cisco IOS devices.
