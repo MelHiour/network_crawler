@@ -62,7 +62,7 @@ if not args.ping:
 else:
     ip_list = cr.ping_ip_addresses(devices, limit =int(args.ping_process))
     if ip_list['alive']:
-        print('INFO | There are some alive devices noticed... Processing...')
+        print('INFO | There are {} alive devices noticed... Processing...'.format(len(ip_list['alive'])))
         if ip_list['dead']:
             print('WARN | These devices are dead: {}'.format(ip_list['dead']))
         result = cr.connect_and_send_parallel(ip_list['alive'], args.creds_file, args.command_file, limit=int(args.connect_threads))
