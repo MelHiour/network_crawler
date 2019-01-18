@@ -72,11 +72,11 @@ data/devices
 debug.yml
 is a dictionary with the following keys and values
 ```
-{'ARGS': provided arguments, 
+{'ARGS':      provided arguments, 
 'PINGED_IPS': result of ping check, 
-'DEVICES': provided device list or the result of file parsing, 
-'RESULT': result of the script execution (list of dictionaries {IP:OUTPUT},
-'TIME': [Start time, end time]}
+'DEVICES':    provided device list or the result of file parsing, 
+'RESULT':     result of the script execution (list of dictionaries {IP:OUTPUT},
+'TIME':       [Start time, end time]}
 ```
 
 ### Execution examples
