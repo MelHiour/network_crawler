@@ -108,10 +108,52 @@ python crawler.py -l "192.168.0.1, 192.168.0.2" -c data/creds.yml -r data/commad
 ### Result example
 without --brief specified (default)
 ```
+python crawler.py -l 192.168.0.1,192.168.30.3,192.168.30.27 -c data/creds.yml -r data/commands
+================================
+"Network crawler" script started
+================================
+DONE | Arguments parsed and validated
+DONE | Processing devices from provided list "['192.168.0.1', '192.168.30.3', '192.168.30.27']"
+DONE | Pinging devices...
+INFO | There are 2 alive devices noticed... Processing...
+WARN | These devices are dead: ['192.168.0.1']
+DONE | Connecting to devices and sending commands...
+INFO | The following commands have been sent
+
+╒═══════════════╤═══════════════════════════════════════════════════════════════╕
+│ IP            │ OUTPUT                                                        │
+╞═══════════════╪═══════════════════════════════════════════════════════════════╡
+│ 192.168.30.3  │ Timeout                                                       │
+├───────────────┼───────────────────────────────────────────────────────────────┤
+│ 192.168.30.27 │ config term                                                   │
+│               │ Enter configuration commands, one per line.  End with CNTL/Z. │
+│               │ R27(config)#username user1 secret user1                       │
+│               │ R27(config)#end                                               │
+│               │ R27#                                                          │
+╘═══════════════╧═══════════════════════════════════════════════════════════════╛
 ```
 
 with --brief
 ```
+python crawler.py -l 192.168.0.1,192.168.30.3,192.168.30.27 -c data/creds.yml -r data/commands --brief
+================================
+"Network crawler" script started
+================================
+DONE | Arguments parsed and validated
+DONE | Processing devices from provided list "['192.168.0.1', '192.168.30.3', '192.168.30.27']"
+DONE | Pinging devices...
+INFO | There are 2 alive devices noticed... Processing...
+WARN | These devices are dead: ['192.168.0.1']
+DONE | Connecting to devices and sending commands...
+INFO | Showing summary information
+
+=============  ========
+IP             STATUS
+=============  ========
+192.168.0.1    Skipped
+192.168.30.3   Timeout
+192.168.30.27  Timeout
+=============  ========
 ```
 
 ### Requirments
