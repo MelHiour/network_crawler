@@ -32,7 +32,7 @@ optional arguments:
 ```
 ├── crawler_modules.py      # All functions are stored here
 ├── crawler.py              # The script itself
-├── data                    # Folder with all supporting files 
+├── data                    # Folder with all supporting files
 │   ├── commands            # List of commands to be executed on every device
 │   ├── creds.yml           # YAML file with credentials
 │   └── devices             # Device list
@@ -72,15 +72,15 @@ data/devices
 debug.yml
 is a dictionary with the following keys and values
 ```
-{'ARGS':      provided arguments, 
-'PINGED_IPS': result of ping check, 
-'DEVICES':    provided device list or the result of file parsing, 
+{'ARGS':      provided arguments,
+'PINGED_IPS': result of ping check,
+'DEVICES':    provided device list or the result of file parsing,
 'RESULT':     result of the script execution (list of dictionaries {IP:OUTPUT},
 'TIME':       [Start time, end time]}
 ```
 
 ### Execution examples
-Try to exhaust the list of credentials data/creds.yml on all devices from file data/devices and run commands specified in data/commands 
+Try to exhaust the list of credentials data/creds.yml on all devices from file data/devices and run commands specified in data/commands
 ```
 python crawler.py -d data/devices -c data/creds.yml -r data/commads
 ```
@@ -100,7 +100,7 @@ Brief output instead of full output table.
 python crawler.py -l "192.168.0.1, 192.168.0.2" -c data/creds.yml -r data/commads --no-ping --brief
 ```
 
-Creating debug.yml file with some usefull information (could be easily parsed) 
+Creating debug.yml file with some usefull information (could be easily parsed)
 ```
 python crawler.py -l "192.168.0.1, 192.168.0.2" -c data/creds.yml -r data/commads --no-ping --brief
 ```
@@ -157,6 +157,11 @@ IP             STATUS
 ```
 
 ### Requirments
+python3
+pyyaml
+tabulate
+netmiko
+halo
 
 ### Limitation
-1. The script is currently tested only on Cisco IOS devices.
+1. Only Cisco IOS devices are currently supported.
