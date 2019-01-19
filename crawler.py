@@ -77,23 +77,27 @@ else:
         result = None
 
 if result:
+    full_view = [(key,value) for items in result for key,value in items.items()]
+
+    brief_view = []
+    for items in result:
+        for key,value in items.items():
+            if '\n' in value:
+                brief_view.append((key, 'Succeeded'))
+            else:
+                brief_view.append((key, value))
+    if ip_list:
+        for item in ip_list['dead']:
+            brief_view.append((item, 'Unreachable'))
+    brief_view.sort(key=cr.ip_sort)
+
+    print(brief_view)
+
     if not args.brief:
         print('INFO | The following commands have been sent\n')
-        full_view = [(key,value) for items in result for key,value in items.items()]
         print(tabulate(full_view, headers = ['IP', 'OUTPUT'], tablefmt='fancy_grid'))
     else:
         print('INFO | Showing summary information\n')
-        brief_view = []
-        for items in result:
-            for key,value in items.items():
-                if '\n' in value:
-                    brief_view.append((key, 'Succeeded'))
-                else:
-                    brief_view.append((key, value))
-        if ip_list:
-            for item in ip_list['dead']:
-                brief_view.append((item, 'Unreachable'))
-        brief_view.sort(key=cr.ip_sort)
         print(tabulate(brief_view, headers = ['IP', 'STATUS'], tablefmt='rst'))
 
 end = datetime.datetime.now()
