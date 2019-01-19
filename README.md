@@ -146,6 +146,8 @@ STATUS         COUNT
 -----------  -------
 Succeeded          2
 Unreachable        1
+
+Execution time: 0:02:58.232124
 ```
 
 ## --brief
@@ -176,6 +178,8 @@ STATUS         COUNT
 -----------  -------
 Unreachable        1
 Succeeded          2
+
+Execution time: 0:02:56.778946
 ```
 
 ### Requirements
@@ -189,6 +193,16 @@ Succeeded          2
 
 ### Performance
 It's not that bad, but it's not very quick either. The performance mostly depends on the amount of credentials to check. Currently, script uses multiprocessing for device connection. It's "parallelized" by devices (not credential pairs). Script starts to gently "brute force" some devices simultaneously trying to use credentials in one-by-one manner on each device. Why? Because the script has been designed for old IOS devices which have around 4 vty lines... Probably, I will add that feature latter, but not sure. 
+
+Here are some metrics:
+```
+STATUS         COUNT
+-----------  -------
+Timeout            2
+Unreachable        1
+Succeeded         47
+```
+Execution time: 0:04:50.479534
 
 ### Limitation
 1. Only Cisco IOS devices are currently supported.
