@@ -77,25 +77,29 @@ else:
         result = cr.connect_and_send_parallel(ip_list['alive'], args.creds_file, args.command_file, limit=int(args.connect_threads))
     else:
         print('WARN | All devices are dead...')
+        result = None
 
-if not args.brief:
-    print('INFO | The following commands have been sent\n')
-    print(tabulate([(key,value) for items in result for key,value in items.items()], headers = ['IP', 'OUTPUT'], tablefmt='fancy_grid'))
-else:
-    print('INFO | Showing summary information\n')
-    brief_view = []
-    for items in result:
-        for key,value in items.items():
-            if not 'Timeout' in value:
-                brief_view.append((key, 'Succeeded'))
-            else:
-                brief_view.append((key, value))
-    for item in ip_list['dead']:
-        brief_view.append((item, 'Skipped'))
-    brief_view.sort(key=cr.ip_sort)
-    print(tabulate(brief_view, headers = ['IP', 'STATUS'], tablefmt='rst'))
+if result:
+    if not args.brief:
+        print('INFO | The following commands have been sent\n')
+        print(tabulate([(key,value) for items in result for key,value in items.items()], headers = ['IP', 'OUTPUT'], tablefmt='fancy_grid'))
+    else:
+        print('INFO | Showing summary information\n')
+        brief_view = []
+        for items in result:
+            for key,value in items.items():
+                if not 'Timeout' in value:
+                    brief_view.append((key, 'Succeeded'))
+                else:
+                    brief_view.append((key, value))
+        for item in ip_list['dead']:
+            brief_view.append((item, 'Skipped'))
+        brief_view.sort(key=cr.ip_sort)
+        print(tabulate(brief_view, headers = ['IP', 'STATUS'], tablefmt='rst'))
 
 end = datetime.datetime.now()
+print('Execution time: {}'.format(start - end))
+
 if args.debug:
     print('INFO | Writing data to debug.yml')
     with open('debug.yml', 'w') as file:
