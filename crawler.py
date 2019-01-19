@@ -85,12 +85,13 @@ if result:
         brief_view = []
         for items in result:
             for key,value in items.items():
-                if not 'Timeout' in value:
+                if '\n' in value:
                     brief_view.append((key, 'Succeeded'))
                 else:
                     brief_view.append((key, value))
-        for item in ip_list['dead']:
-            brief_view.append((item, 'Unreachable'))
+        if ip_list:
+            for item in ip_list['dead']:
+                brief_view.append((item, 'Unreachable'))
         brief_view.sort(key=cr.ip_sort)
         print(tabulate(brief_view, headers = ['IP', 'STATUS'], tablefmt='rst'))
 
