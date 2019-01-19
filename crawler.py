@@ -90,9 +90,7 @@ if result:
         for item in ip_list['dead']:
             brief_view.append((item, 'Unreachable'))
     brief_view.sort(key=cr.ip_sort)
-
-    print(brief_view)
-
+    
     if not args.brief:
         print('INFO | The following commands have been sent\n')
         print(tabulate(full_view, headers = ['IP', 'OUTPUT'], tablefmt='fancy_grid'))
@@ -102,7 +100,7 @@ if result:
 
 end = datetime.datetime.now()
 
-print(tabulate([['Execution time: {}'.format(end - start)]], tablefmt='grid'))
+print('Execution time: {}'.format(end - start))
 
 if args.debug:
     print('INFO | Writing data to debug.yml')
