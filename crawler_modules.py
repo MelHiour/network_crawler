@@ -15,6 +15,7 @@ dots = {"interval": 200,
             "  ..",
             "   .",
             "    "]}
+            
 def split_ip(ip):
     return tuple(int(part) for part in ip.split('.'))
 

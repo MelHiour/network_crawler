@@ -7,6 +7,7 @@ from tabulate import tabulate
 import crawler_modules as cr
 
 start = datetime.datetime.now()
+
 parse_desc= '''
 A small script with a big name.
 How to send several commands to some devices if you do not know exact credential pair? This script is responding to this challenge.
