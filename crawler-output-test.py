@@ -30,6 +30,8 @@ parser.add_argument('-t',
                     action='store', dest='connect_threads', required=False, help='The amount of simultanious SSH connections (30 by default)')
 parser.add_argument('-p',
                     action='store', dest='ping_process', required=False, help='The amount of ping processes (30 by default)')
+parser.add_argument('-o',
+                    action='store', dest='output_type', required=False, choices = ['full','brief','statonly'], help='Type of output')
 
 ping_group = parser.add_mutually_exclusive_group()
 ping_group.add_argument('--ping',
@@ -43,13 +45,7 @@ debug_group.add_argument('--debug',
 debug_group.add_argument('--no-debug',
                     action='store_false', dest='debug', help='Disable debug.yml (default)')
 
-brief_group = parser.add_mutually_exclusive_group()
-brief_group.add_argument('--brief',
-                    action='store_true', dest='brief', help='Enable brief output with summary information')
-brief_group.add_argument('--no-brief',
-                    action='store_false', dest='brief', help='Returning output of commands per device (default)')
-
-parser.set_defaults(ping = True, debug = False, brief = False, connect_threads = 30, ping_process = 30)
+parser.set_defaults(ping = True, debug = False, brief = False, utput_type = 'full', connect_threads = 30, ping_process = 30)
 args = parser.parse_args()
 
 print('DONE | Arguments parsed and validated')
@@ -77,10 +73,10 @@ else:
         result = None
 
 if result:
-    if not args.brief:
+    if args.output_type == 'full':
         print('INFO | The following commands have been sent\n')
         print(tabulate([(key,value) for items in result for key,value in items.items()], headers = ['IP', 'OUTPUT'], tablefmt='fancy_grid'))
-    else:
+    elif args.output_type == 'brief':
         print('INFO | Showing summary information\n')
         brief_view = []
         for items in result:
@@ -93,6 +89,8 @@ if result:
             brief_view.append((item, 'Unreachable'))
         brief_view.sort(key=cr.ip_sort)
         print(tabulate(brief_view, headers = ['IP', 'STATUS'], tablefmt='rst'))
+    else:
+        pass
 
 end = datetime.datetime.now()
 
