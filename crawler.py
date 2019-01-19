@@ -91,7 +91,7 @@ if result:
                 else:
                     brief_view.append((key, value))
         for item in ip_list['dead']:
-            brief_view.append((item, 'Skipped'))
+            brief_view.append((item, 'Unreachable'))
         brief_view.sort(key=cr.ip_sort)
         print(tabulate(brief_view, headers = ['IP', 'STATUS'], tablefmt='rst'))
 
