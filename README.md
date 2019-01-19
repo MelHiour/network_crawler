@@ -11,6 +11,9 @@ usage: crawler.py [-h] (-d DEVICE_FILE | -l DEVICE_LIST) -c CREDS_FILE -r
                   [--ping | --no-ping] [--debug | --no-debug]
                   [--brief | --no-brief]
 
+A small script with a big name. How to send several commands to some devices
+if you do not know exact credential pair? This script is responding to this
+challenge.
 
 optional arguments:
   -h, --help          show this help message and exit
@@ -18,7 +21,8 @@ optional arguments:
   -l DEVICE_LIST      List of IP addresses (ex. "10.10.1.2, 10.10.1.3")
   -c CREDS_FILE       Path to file with credentials
   -r COMMAND_FILE     Path to file with comamnds list to be executed
-  -t CONNECT_THREADS  The amount of simultanious SSH connections (30 by default)
+  -t CONNECT_THREADS  The amount of simultanious SSH connections (30 by
+                      default)
   -p PING_PROCESS     The amount of ping processes (30 by default)
   --ping              Enable ping test (default)
   --no-ping           Skip ping test
@@ -106,12 +110,12 @@ python crawler.py -l "192.168.0.1, 192.168.0.2" -c data/creds.yml -r data/commad
 ```
 
 ### Result example
-without --brief specified (default)
+## --no-brief (default)
 ```
-python crawler.py -l 192.168.0.1,192.168.30.3,192.168.30.27 -c data/creds.yml -r data/commands
-================================
-"Network crawler" script started
-================================
+$ python crawler.py -l 192.168.0.1,192.168.30.3,192.168.30.27 -c data/creds.yml -r data/commands
++-------------------+----------------------+
+| "Network crawler" | @2019-01-19 23:19:46 |
++-------------------+----------------------+
 DONE | Arguments parsed and validated
 DONE | Processing devices from provided list "['192.168.0.1', '192.168.30.3', '192.168.30.27']"
 DONE | Pinging devices...
@@ -123,22 +127,33 @@ INFO | The following commands have been sent
 ╒═══════════════╤═══════════════════════════════════════════════════════════════╕
 │ IP            │ OUTPUT                                                        │
 ╞═══════════════╪═══════════════════════════════════════════════════════════════╡
-│ 192.168.30.3  │ Timeout                                                       │
+│ 192.168.30.3  │ config term                                                   │
+│               │ Enter configuration commands, one per line.  End with CNTL/Z. │
+│               │ R3(config)#username user priv 15 secret secret                │
+│               │ R3(config)#end                                                │
+│               │ R3#                                                           │
 ├───────────────┼───────────────────────────────────────────────────────────────┤
 │ 192.168.30.27 │ config term                                                   │
 │               │ Enter configuration commands, one per line.  End with CNTL/Z. │
-│               │ R27(config)#username user1 secret user1                       │
+│               │ R27(config)#username user priv 15 secret secret               │
 │               │ R27(config)#end                                               │
 │               │ R27#                                                          │
 ╘═══════════════╧═══════════════════════════════════════════════════════════════╛
+
+INFO | Showing statistics information
+
+STATUS         COUNT
+-----------  -------
+Succeeded          2
+Unreachable        1
 ```
 
-with --brief
+## --brief
 ```
-python crawler.py -l 192.168.0.1,192.168.30.3,192.168.30.27 -c data/creds.yml -r data/commands --brief
-================================
-"Network crawler" script started
-================================
+$ python crawler.py -l 192.168.0.1,192.168.30.3,192.168.30.27 -c data/creds.yml -r data/commands --brief
++-------------------+----------------------+
+| "Network crawler" | @2019-01-19 23:16:10 |
++-------------------+----------------------+
 DONE | Arguments parsed and validated
 DONE | Processing devices from provided list "['192.168.0.1', '192.168.30.3', '192.168.30.27']"
 DONE | Pinging devices...
@@ -147,21 +162,33 @@ WARN | These devices are dead: ['192.168.0.1']
 DONE | Connecting to devices and sending commands...
 INFO | Showing summary information
 
-=============  ========
+=============  ===========
 IP             STATUS
-=============  ========
-192.168.0.1    Skipped
-192.168.30.3   Timeout
-192.168.30.27  Timeout
-=============  ========
+=============  ===========
+192.168.0.1    Unreachable
+192.168.30.3   Succeeded
+192.168.30.27  Succeeded
+=============  ===========
+
+INFO | Showing statistics information
+
+STATUS         COUNT
+-----------  -------
+Unreachable        1
+Succeeded          2
 ```
 
-### Requirments
-python3
-pyyaml
-tabulate
-netmiko
-halo
+### Requirements
+```
+- python3
+- pyyaml      # For file parsing
+- tabulate    # For output printing
+- netmiko     # For connecting to devices
+- halo        # For damn good spinners...
+```
+
+### Performance
+It's not that bad, but it's not very quick either. The performance mostly depends on the amount of credentials to check. Currently, script uses multiprocessing for device connection. It's "parallelized" by devices (not credential pairs). Script starts to gently "brute force" some devices simultaneously trying to use credentials in one-by-one manner on each device. Why? Because the script has been designed for old IOS devices which have around 4 vty lines... Probably, I will add that feature latter, but not sure. 
 
 ### Limitation
 1. Only Cisco IOS devices are currently supported.
