@@ -39,13 +39,7 @@ ping_group.add_argument('--ping',
 ping_group.add_argument('--no-ping',
                     action='store_false', dest='ping', help='Skip ping test')
 
-debug_group = parser.add_mutually_exclusive_group()
-debug_group.add_argument('--debug',
-                    action='store_true', dest='debug', help='Enable debug.yml')
-debug_group.add_argument('--no-debug',
-                    action='store_false', dest='debug', help='Disable debug.yml (default)')
-
-parser.set_defaults(ping = True, debug = False, brief = False, utput_type = 'full', connect_threads = 30, ping_process = 30)
+parser.set_defaults(ping = True, debug = False, brief = False, output_type = 'full', connect_threads = 30, ping_process = 30)
 args = parser.parse_args()
 
 print('DONE | Arguments parsed and validated')
@@ -73,22 +67,26 @@ else:
         result = None
 
 if result:
+    full_view = [(key,value) for items in result for key,value in items.items()]
+    
+    brief_view = []
+    for items in result:
+        for key,value in items.items():
+            if '\n' in value:
+                brief_view.append((key, 'Succeeded'))
+            else:
+                brief_view.append((key, value))
+    for item in ip_list['dead']:
+        brief_view.append((item, 'Unreachable'))
+        brief_view.sort(key=cr.ip_sort) 
+    pprint(brief_view)
+    
     if args.output_type == 'full':
         print('INFO | The following commands have been sent\n')
-        print(tabulate([(key,value) for items in result for key,value in items.items()], headers = ['IP', 'OUTPUT'], tablefmt='fancy_grid'))
+        print(tabulate(view, headers = ['IP', 'OUTPUT'], tablefmt='fancy_grid'))
     elif args.output_type == 'brief':
         print('INFO | Showing summary information\n')
-        brief_view = []
-        for items in result:
-            for key,value in items.items():
-                if not 'Timeout' in value:
-                    brief_view.append((key, 'Succeeded'))
-                else:
-                    brief_view.append((key, value))
-        for item in ip_list['dead']:
-            brief_view.append((item, 'Unreachable'))
-        brief_view.sort(key=cr.ip_sort)
-        print(tabulate(brief_view, headers = ['IP', 'STATUS'], tablefmt='rst'))
+        print(tabulate(view, headers = ['IP', 'STATUS'], tablefmt='rst'))
     else:
         pass
 
