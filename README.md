@@ -110,7 +110,7 @@ python crawler.py -l "192.168.0.1, 192.168.0.2" -c data/creds.yml -r data/commad
 ```
 
 ### Result example
-##--no-brief (default)
+## --no-brief (default)
 ```
 $ python crawler.py -l 192.168.0.1,192.168.30.3,192.168.30.27 -c data/creds.yml -r data/commands
 +-------------------+----------------------+
