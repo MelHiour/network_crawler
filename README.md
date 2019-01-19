@@ -205,4 +205,4 @@ Execution time: 0:04:50.479534
 
 ### Limitation
 1. Only Cisco IOS devices are currently supported.
-2. Only configuration mode commands are accepted. Show commands will be rejected by device if not "do" keyword specified.
+2. Only configuration mode commands are accepted. Show commands will be rejected by device if "do" keyword is not specified.
