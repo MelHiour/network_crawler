@@ -79,7 +79,8 @@ else:
 if result:
     if not args.brief:
         print('INFO | The following commands have been sent\n')
-        print(tabulate([(key,value) for items in result for key,value in items.items()], headers = ['IP', 'OUTPUT'], tablefmt='fancy_grid'))
+        full_view = [(key,value) for items in result for key,value in items.items()]
+        print(tabulate(full_view, headers = ['IP', 'OUTPUT'], tablefmt='fancy_grid'))
     else:
         print('INFO | Showing summary information\n')
         brief_view = []
