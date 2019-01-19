@@ -13,8 +13,6 @@ A small script with a big name.
 How to send several commands to some devices if you do not know exact credential pair? This script is responding to this challenge.
 '''
 
-print(tabulate([['"Network crawler"', '@'+start.strftime("%Y-%m-%d %H:%M:%S")]], tablefmt='grid'))
-
 parser = argparse.ArgumentParser(description=parse_desc)
 device_group = parser.add_mutually_exclusive_group(required=True)
 device_group.add_argument('-d',
@@ -52,6 +50,7 @@ brief_group.add_argument('--no-brief',
 parser.set_defaults(ping = True, debug = False, brief = False, connect_threads = 30, ping_process = 30)
 args = parser.parse_args()
 
+print(tabulate([['"Network crawler"', '@'+start.strftime("%Y-%m-%d %H:%M:%S")]], tablefmt='grid'))
 print('DONE | Arguments parsed and validated')
 
 if args.device_list:
