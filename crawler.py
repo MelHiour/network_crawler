@@ -16,7 +16,6 @@ How to send several commands to some devices if you do not know exact credential
 print(tabulate([['"Network crawler"', '@'+start.strftime("%Y-%m-%d %H:%M:%S")]], tablefmt='grid'))
 
 parser = argparse.ArgumentParser(description=parse_desc)
-
 device_group = parser.add_mutually_exclusive_group(required=True)
 device_group.add_argument('-d',
                     action='store', dest='device_file', help='Path to device file')
