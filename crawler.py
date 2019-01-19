@@ -100,12 +100,12 @@ if result:
     status_list = [item[1] for item in brief_view]
     status_list_unique = set([item[1] for item in brief_view])
     count_list = [(status, status_list.count(status)) for status in status_list_unique]
-    print('INFO | Showing statistics information\n')
+    print('\nINFO | Showing statistics information\n')
     print(tabulate(count_list, headers = ['STATUS', 'COUNT']))
 
 end = datetime.datetime.now()
 
-print('Execution time: {}'.format(end - start))
+print('\nExecution time: {}'.format(end - start))
 
 if args.debug:
     print('INFO | Writing data to debug.yml')
