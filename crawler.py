@@ -13,9 +13,7 @@ A small script with a big name.
 How to send several commands to some devices if you do not know exact credential pair? This script is responding to this challenge.
 '''
 
-print('='*32)
-print('"Network crawler" script started')
-print('='*32)
+print(tabulate([['"Network crawler"', '@'+start.strftime("%Y-%m-%d %H:%M:%S")]], tablefmt='grid'))
 
 parser = argparse.ArgumentParser(description=parse_desc)
 
@@ -76,7 +74,7 @@ else:
             print('WARN | These devices are dead: {}'.format(ip_list['dead']))
         result = cr.connect_and_send_parallel(ip_list['alive'], args.creds_file, args.command_file, limit=int(args.connect_threads))
     else:
-        print('WARN | All devices are dead...')
+        print('STOP | All devices are seem to be dead...')
         result = None
 
 if result:
@@ -98,7 +96,8 @@ if result:
         print(tabulate(brief_view, headers = ['IP', 'STATUS'], tablefmt='rst'))
 
 end = datetime.datetime.now()
-print('Execution time: {}'.format(start - end))
+
+print(tabulate([['Execution time: {}'.format(end - start)]], tablefmt='grid'))
 
 if args.debug:
     print('INFO | Writing data to debug.yml')
