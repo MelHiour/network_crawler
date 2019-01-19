@@ -90,13 +90,18 @@ if result:
         for item in ip_list['dead']:
             brief_view.append((item, 'Unreachable'))
     brief_view.sort(key=cr.ip_sort)
-    
+
     if not args.brief:
         print('INFO | The following commands have been sent\n')
         print(tabulate(full_view, headers = ['IP', 'OUTPUT'], tablefmt='fancy_grid'))
     else:
         print('INFO | Showing summary information\n')
         print(tabulate(brief_view, headers = ['IP', 'STATUS'], tablefmt='rst'))
+
+    status_list = [item[1] for item in brief_view]
+    status_list_unique = set([item[1] for item in brief_view])
+    count_list = [(status, status_list.count(status)) for status in status_list_unique]
+    print(tabulate(count_list, headers = ['STATUS', 'COUNT'], tablefmt='rst'))
 
 end = datetime.datetime.now()
 
