@@ -140,7 +140,7 @@ INFO | The following commands have been sent
 │               │ R27#                                                          │
 ╘═══════════════╧═══════════════════════════════════════════════════════════════╛
 
-INFO | Showing statistics information
+INFO | Showing statistics
 
 STATUS         COUNT
 -----------  -------
@@ -172,7 +172,7 @@ IP             STATUS
 192.168.30.27  Succeeded
 =============  ===========
 
-INFO | Showing statistics information
+INFO | Showing statistics
 
 STATUS         COUNT
 -----------  -------
