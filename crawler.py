@@ -100,7 +100,8 @@ if result:
     status_list = [item[1] for item in brief_view]
     status_list_unique = set([item[1] for item in brief_view])
     count_list = [(status, status_list.count(status)) for status in status_list_unique]
-    print(tabulate(count_list, headers = ['STATUS', 'COUNT'], tablefmt='rst'))
+    print('INFO | Showing statistics information\n')
+    print(tabulate(count_list, headers = ['STATUS', 'COUNT']))
 
 end = datetime.datetime.now()
 
