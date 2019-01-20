@@ -67,7 +67,6 @@ def connect_and_send(host, creds_file, command_file):
             break
         except netmiko.ssh_exception.NetMikoAuthenticationException:
             output[host] = 'No creds found'
-            pass
         except netmiko.ssh_exception.NetMikoTimeoutException:
             output[host] = 'Timeout'
             break
