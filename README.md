@@ -11,10 +11,6 @@ usage: crawler.py [-h] (-d DEVICE_FILE | -l DEVICE_LIST) -c CREDS_FILE -r
                   [--ping | --no-ping] [--debug | --no-debug]
                   [--brief | --no-brief]
 
-A small script with a big name. How to send several commands to some devices
-if you do not know exact credential pair? This script is responding to this
-challenge.
-
 optional arguments:
   -h, --help          show this help message and exit
   -d DEVICE_FILE      Path to device file
