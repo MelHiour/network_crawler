@@ -187,7 +187,7 @@ Execution time: 0:02:56.778946
 ```
 
 ### Performance
-It's not that bad, but it's not very quick either. The performance mostly depends on the amount of credentials to check. Currently, script uses multiprocessing for device connection. It's "parallelized" by devices (not credential pairs). Script starts to gently "brute force" some devices simultaneously trying to use credentials in one-by-one manner on each device. Why? Because the script has been designed for old IOS devices which have around 4 vty lines... Probably, I will add that feature latter, but not sure. 
+It's not that bad, but it's not very quick either. The performance mostly depends on the amount of credentials to check. Currently, script uses multiprocessing for device connection. It's "parallelized" by devices (not credential pairs). Script starts to gently "brute force" some devices simultaneously trying to use credentials in one-by-one manner on each device. Why? Because the script has been designed for old IOS devices which have around 4 vty lines... Probably, I will add that feature latter, but not sure.
 
 Here are some metrics for 50 devices, 4 usernames, 4 passwords
 
